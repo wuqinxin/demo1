@@ -2,9 +2,10 @@ package com.example.demo;
 
 
 import com.example.demo.config.AppConfig;
-import com.example.demo.po.UserPO;
 import com.example.demo.po.StudentPO;
 
+import com.example.demo.po.UserPO;
+import com.example.demo.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -21,9 +22,6 @@ public class IOCTest {
         UserPO userPO2 = ctx.getBean(UserPO.class);
         System.out.println(userPO2);
 
-        logger.info(userPO.getNote());
-        logger.info(userPO2.getNote());
-
         StudentPO studentPO = ctx.getBean(StudentPO.class);
         System.out.println(studentPO.getStuName());
         logger.info(studentPO.getStuName());
@@ -36,5 +34,8 @@ public class IOCTest {
 
         logger.info(userPO.getNote());
         logger.info(userPO2.getNote());
+
+        UserVO userVO = ctx.getBean(UserVO.class);
+        logger.info(userVO.toString());
     }
 }

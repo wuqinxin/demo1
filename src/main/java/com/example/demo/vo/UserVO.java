@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * 用户对象
  */
-@Component("user")
+@Component
 public class UserVO {
     @Value("1")
     private Long id;

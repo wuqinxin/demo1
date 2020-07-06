@@ -6,8 +6,11 @@ import org.springframework.stereotype.Component;
 /**
  * 用户对象
  */
+@Component("user")
 public class UserPO {
+    @Value("1")
     private Long id;
+    @Value("超级管理员")
     private String userName;
     private String note;
 
