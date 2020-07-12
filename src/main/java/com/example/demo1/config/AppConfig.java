@@ -15,7 +15,7 @@ import java.util.Properties;
  * 配置文件
  */
 @Configuration
-@ComponentScan(basePackages = "com.example.demo2")
+@ComponentScan(basePackages = "com.example.demo1.vo")
 //@ComponentScan(basePackages = "com.example.demo1.po",basePackageClasses = UserVO.class,
 //       // includeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,classes = UserVO.class)})
 //        excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,classes = UserPO.class)})

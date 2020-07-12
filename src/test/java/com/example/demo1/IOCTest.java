@@ -3,6 +3,7 @@ package com.example.demo1;
 
 import com.example.demo1.config.AppConfig;
 
+import com.example.demo1.vo.DataBaseProperties;
 import com.example.demo2.BusinessPerson;
 import com.example.demo2.Person;
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ public class IOCTest {
     private static Logger logger = LoggerFactory.getLogger(IOCTest.class);
     public static void main(String[] args) {
         //将AppConfig传递给AnnotationConfigApplicationContext的构造方法
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+ //       ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
 //        UserPO userPO = (UserPO)ctx.getBean("user");
 //        System.out.println(userPO.getId() + userPO.getUserName());
 
@@ -43,8 +44,19 @@ public class IOCTest {
 //        logger.info(dataSource.toString());
 
 
-        Person person = ctx.getBean(BusinessPerson.class);
-        person.service();
+//        Person person = ctx.getBean(BusinessPerson.class);
+//        person.service();
+
+
+//        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+////        Person person = ctx.getBean(BusinessPerson.class);
+////        person.service();
+//        ctx.close();
+
+
+        ApplicationContext act = new AnnotationConfigApplicationContext(AppConfig.class);
+        DataBaseProperties dbp = act.getBean(DataBaseProperties.class);
+        System.out.println("dbp.url" + dbp.getUrl());
 
     }
 }

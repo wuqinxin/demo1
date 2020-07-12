@@ -14,9 +14,31 @@
 1、@Autowired会根据属性的类型去IOC容器中找到对应的Bean注入（所以属性必须有@Bean的注解，否则会报错)\
 2、@Autowired注入的属性有多个类时，会根据类型找到bean，再根据属性名进行匹配，匹配上就使用该Bean，匹配不上就会报错，所以一个实现类的时候可以随便起名字，多个实现类的话名字一定要和实现类一样（如果没有另外定义名字的话）\
 同一个接口的实现类类名不要一样，否则会找不到对应的bean报错，如果一定要同样的类名，可以给它起名，默认会先加载没有别名的bean\
-3、@Autowired除了标注属性，标注对应的setter方法也能达到同样的效果\
+3、@Autowired除了标注属性，标注对应的setter方法也能达到同样的效果(setter方法上面要有标注)\
 4、@Primary表示有多个同样类型的Bean时，优先使用有这个注解的Bean\
 5、@Autowired可以配合@Qualifier("beanName")一起使用，spring IOC会以类型和名称去寻找对应的bean\
 6、也可以在使用类（BusinessPerson)的带参构造函数中使用注解，测试的时候没有生效，而且不利于代码阅读，不推荐这种方式\
 
+#生命周期
+Bean的生命周期大致分为：Bean定义、Bean初始化、Bean生存期、Bean销毁\
+Bean定义\
+1、spring通过我们的配置，如@ComponentScan定义的扫描路径去找到带有@Component的类，这个过程就是一个资源定位\
+2、一旦找到了资源，那么它就开始解析，并且将定义的信息保存起来（定义bean）\
+3、然后就会把Bean定义发布到Spring IOC容器中。此时的IOC容器也只有Bean的定义，还没有Bean的实例生成\
+过程：资源定位（如@ComponentScan所定义的扫描包）>>bean定义（将Bean的定义保存到BeanDefinition的实例中）>>发布bean定义(IOC容器装载Bean定义)>>实例化（创建Bean的实例对象）>>依赖注入（如@Autowired注入的各类资源）\
+4、ComponentScan中还有一个配置项：lazyInit（延迟初始化）
+，默认不延迟\
+5、Bean的完整生命周期：初始化>>>依赖注入>>>setBeanName方法(接口BeanNameAware)>>>setBeanFactory方法(接口BeanFactoryAware)>>>setApplicationContext方法(ApplicationContextAware/需要容器实现Applicationcontext接口才调用)>>>postProcessBeforeInitialization方法(BeanPostProcessor的与初始化方法/针对全部Bean生效)>>>自定义初始化方法(@PostConstruct标注方法/注解)>>>AfterPropertiesSet方法(Initialization方法)>>>生存期>>>自定义销毁方法(@PreDestroy标注方法/注解)>>>destroy方法(DisposableBean)\
+6、如果配置了懒加载，只会调用postProcessorBeforeInitialization、postProcessAfterInitialization方法\
+7、引用属性文件的方式：1、在属性上引用和setter方法上引用：@Value("${XXX.xxx}")，属性上引用启动的时候似乎不会调用setter方法，在setter方法上引用启动的时候会调用\
+2、在类名上添加注解：@ConfigurationProperties("XXX"),类的属性名与配置文件的属性名一致，会在启动的时候调用setter打印\
+8、可以定义自己的配置文件，在启动类中加载：@PropertySource(value={"classpath:jdbc.properties"},ignoreResourceNotFound=true),ignore意味着忽略配置文件找不到的问题，默认值为false，开启时没有找到不会报错。自定义配置文件优先级低于application.properties\
+9、当某些配置文件的属性不存在时，可以通过配置类添加@Conditional(DatabaseConditional.class)来让IOC容器不装载这个属性，启动不报错。其中的DatabaseConditional为自己定义的类，继承自Condition接口，实现match方法判断\
+public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata){
+        //取出环境配置
+        Environment env = context.getEnvironment();
+        //判断属性文件是否存在对应的数据库配置
+        return env.containsProperty("database.driverName") && env.containsProperty("database.url")
+                && env.containsProperty("database.username") && env.containsProperty("databse.password");
+    }
 
