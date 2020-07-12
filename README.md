@@ -11,7 +11,7 @@
 8、excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,classes = UserPO.class)})\
 其中FilterType有两种，FilterType.ASSIGNABLE_TYPE:类扫描，FilterType.ANNOTATION:@注释扫描（此处不能定义为@Component，否则所有的类都无法扫描）\
 
-#依赖注入
+# 依赖注入
 
 1、@Autowired会根据属性的类型去IOC容器中找到对应的Bean注入（所以属性必须有@Bean的注解，否则会报错)\
 2、@Autowired注入的属性有多个类时，会根据类型找到bean，再根据属性名进行匹配，匹配上就使用该Bean，匹配不上就会报错，所以一个实现类的时候可以随便起名字，多个实现类的话名字一定要和实现类一样（如果没有另外定义名字的话）\
@@ -21,7 +21,7 @@
 5、@Autowired可以配合@Qualifier("beanName")一起使用，spring IOC会以类型和名称去寻找对应的bean\
 6、也可以在使用类（BusinessPerson)的带参构造函数中使用注解，测试的时候没有生效，而且不利于代码阅读，不推荐这种方式\
 
-#生命周期
+# 生命周期
 
 Bean的生命周期大致分为：Bean定义、Bean初始化、Bean生存期、Bean销毁\
 Bean定义\
