@@ -37,6 +37,7 @@ Bean定义\
 2、在类名上添加注解：@ConfigurationProperties("XXX"),类的属性名与配置文件的属性名一致，会在启动的时候调用setter打印\
 8、可以定义自己的配置文件，在启动类中加载：@PropertySource(value={"classpath:jdbc.properties"},ignoreResourceNotFound=true),ignore意味着忽略配置文件找不到的问题，默认值为false，开启时没有找到不会报错。自定义配置文件优先级低于application.properties\
 9、当某些配置文件的属性不存在时，可以通过配置类添加@Conditional(DatabaseConditional.class)来让IOC容器不装载这个属性，启动不报错。其中的DatabaseConditional为自己定义的类，继承自Condition接口，实现match方法判断\
+```java
 public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata){
         //取出环境配置
         Environment env = context.getEnvironment();
@@ -44,4 +45,5 @@ public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata)
         return env.containsProperty("database.driverName") && env.containsProperty("database.url")
                 && env.containsProperty("database.username") && env.containsProperty("databse.password");
     }
+```
 
