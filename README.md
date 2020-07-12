@@ -1,4 +1,5 @@
 # Bean的装配
+
 1、@Configuration代表这是一个Java配置文件，Spring的容器将根据它来生成Bean\
 2、@Bean代表将方法返回的POJO装配到IoC容器中，而其属性name定义这个Bean的名称，如果偶没有配置，则将方法名保存到Spring IOC容器中\
 3、可以使用名称和对象来获取Bean，使用UserPO.class方法来获取POJO时，需要确定AppConfig中只有一个接口是返回UserPO对象，否则会报错：\
@@ -11,6 +12,7 @@
 其中FilterType有两种，FilterType.ASSIGNABLE_TYPE:类扫描，FilterType.ANNOTATION:@注释扫描（此处不能定义为@Component，否则所有的类都无法扫描）\
 
 #依赖注入
+
 1、@Autowired会根据属性的类型去IOC容器中找到对应的Bean注入（所以属性必须有@Bean的注解，否则会报错)\
 2、@Autowired注入的属性有多个类时，会根据类型找到bean，再根据属性名进行匹配，匹配上就使用该Bean，匹配不上就会报错，所以一个实现类的时候可以随便起名字，多个实现类的话名字一定要和实现类一样（如果没有另外定义名字的话）\
 同一个接口的实现类类名不要一样，否则会找不到对应的bean报错，如果一定要同样的类名，可以给它起名，默认会先加载没有别名的bean\
@@ -20,6 +22,7 @@
 6、也可以在使用类（BusinessPerson)的带参构造函数中使用注解，测试的时候没有生效，而且不利于代码阅读，不推荐这种方式\
 
 #生命周期
+
 Bean的生命周期大致分为：Bean定义、Bean初始化、Bean生存期、Bean销毁\
 Bean定义\
 1、spring通过我们的配置，如@ComponentScan定义的扫描路径去找到带有@Component的类，这个过程就是一个资源定位\
