@@ -1,4 +1,4 @@
-package com.example.demo.po;
+package com.example.demo1.po;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * 用户对象
  */
-@Component("user")
+@Component
 public class UserPO {
     @Value("1")
     private Long id;
