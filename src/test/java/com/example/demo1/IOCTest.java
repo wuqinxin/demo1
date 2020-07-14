@@ -6,6 +6,8 @@ import com.example.demo1.config.AppConfig;
 import com.example.demo1.vo.DataBaseProperties;
 import com.example.demo2.BusinessPerson;
 import com.example.demo2.Person;
+import com.example.demo2.bean.ScopeBean;
+import com.example.demo2.bean.Squirrel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -53,10 +55,18 @@ public class IOCTest {
 ////        person.service();
 //        ctx.close();
 
-
+//
         ApplicationContext act = new AnnotationConfigApplicationContext(AppConfig.class);
-        DataBaseProperties dbp = act.getBean(DataBaseProperties.class);
-        System.out.println("dbp.url" + dbp.getUrl());
+//        DataBaseProperties dbp = act.getBean(DataBaseProperties.class);
+//        System.out.println("dbp.url" + dbp.getUrl());
 
+        ScopeBean scopeBean1 = act.getBean(ScopeBean.class);
+ //       ScopeBean scopeBean2 = act.getBean(ScopeBean.class);
+        System.out.println(scopeBean1.getName());
+//        System.out.println(scopeBean1 == scopeBean2);
+//        scopeBean1.setName("AAA");
+//        System.out.println(scopeBean2.getName());
+//        Squirrel squirrel = act.getBean(Squirrel.class);
+//        squirrel.use();
     }
 }
