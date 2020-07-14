@@ -71,5 +71,6 @@ public class BusinessPerson implements Person, BeanNameAware, BeanFactoryAware,
     @Override
     public void destroy(){
         System.out.println("[" + this.getClass().getSimpleName() + "]DisposableBean方法");
+
     }
 }

@@ -47,3 +47,20 @@ public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata)
     }
 ```
 
+# Bean的作用域
+singleton：默认值，IOC容器只存在单例。此作用域下修改一个bean另外的bean属性值也会跟着发生变化\
+prototype：每当从IOC容器中取出一个Bean，则创建一个新的Bean\
+session：Http会话\
+application：Web工程生命周期\
+request：Web工程单次请求\
+globalSession：在一个全局的HTTPSession中，一个Bean定义一个实例。实践中基本不使用\
+\
+可以用@Profile定义不同的bean，配置不同的数据库，以便在不同的环境中进行切换\
+Spring中存在两个参数来修改启动profile的机制，一个是spring.profiles.active，另一个是spring.profile.default\
+在这两个属性都没有配置的情况下，spring将不会启动profile机制，也就意味着呗@Profile标注的Bean将不会被spring装配到IOC容器中\
+spring是先判定是否存在spring.profiles.active配置后，再去查找spring.profile.default配置，所以spring.profile.active的优先级大于spring.profile.default\
+使用@ImportResource可以引入xml文件中的配置：@ImportResource(value = {"classpath:spring-other.xml"})\
+springEL可以拥有更为强大的运算规则来装配Bean，比如使用@Value读取属性文件的值\
+@Value中#{}代表启用spring表达式，它将具有运算的功能；T(...)表示引入类，如果是Java.lang.*包里面的类，可以不必写全名，如果是其他的包，需要写出全限定名才能引用类.\
+比如：@Value("#{T(System).currentTimeMillis()}")代表获取当前系统的时间，其中currentTimeMillis是System的静态方法,同样可以使用@Value("#{bean.method()}")来给它赋其他值,但是调用的方法必须是静态方法，否则会报错\
+

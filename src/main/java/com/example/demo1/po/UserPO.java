@@ -46,4 +46,8 @@ public class UserPO {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public static String getName1(){
+        return "AABBB";
+    }
 }
