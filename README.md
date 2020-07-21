@@ -63,4 +63,4 @@ spring是先判定是否存在spring.profiles.active配置后，再去查找spri
 springEL可以拥有更为强大的运算规则来装配Bean，比如使用@Value读取属性文件的值\
 @Value中#{}代表启用spring表达式，它将具有运算的功能；T(...)表示引入类，如果是Java.lang.*包里面的类，可以不必写全名，如果是其他的包，需要写出全限定名才能引用类.\
 比如：@Value("#{T(System).currentTimeMillis()}")代表获取当前系统的时间，其中currentTimeMillis是System的静态方法,同样可以使用@Value("#{bean.method()}")来给它赋其他值,但是调用的方法必须是静态方法，否则会报错\
-
+@Value("#{beanName.str?.toUpperCase()}")表示判断这个属性是否为空，不为空才会去执行toUpperCase方法，进而把引用到的属性转换为大写\
